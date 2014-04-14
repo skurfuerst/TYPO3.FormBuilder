@@ -37,6 +37,8 @@ TYPO3.FormBuilder = Ember.Application.create {
 # `TYPO3.FormBuilder.Configuration` contains the server-side generated config array.
 TYPO3.FormBuilder.Configuration = window.FORMBUILDER_CONFIGURATION
 
+TYPO3.FormBuilder.Configuration.applicationName = 'Form Builder' if !TYPO3.FormBuilder.Configuration.applicationName
+
 if TYPO3.FormBuilder.Configuration?.stylesheets
 	for stylesheet in TYPO3.FormBuilder.Configuration.stylesheets
 		$('head').append($('<link rel="stylesheet" />').attr('href', stylesheet))

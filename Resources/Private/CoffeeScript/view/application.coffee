@@ -87,6 +87,6 @@ TYPO3.FormBuilder.View.Application = Ember.View.extend {
 
 	# update <title> when the label of the form definition changes
 	updatePageTitle: (->
-		document.title = 'Form Builder - ' + Ember.getPath('TYPO3.FormBuilder.Model.Form.formDefinition.label')
+		document.title = Ember.getPath('TYPO3.FormBuilder.Configuration.applicationName') + ' - ' + Ember.getPath('TYPO3.FormBuilder.Model.Form.formDefinition.label')
 	).observes('TYPO3.FormBuilder.Model.Form.formDefinition.label')
 }
