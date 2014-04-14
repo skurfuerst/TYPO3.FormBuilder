@@ -152,7 +152,7 @@ TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend {
 		# we deliberately do NOT use Ember.set() here, as this crashes IE8
 		# when rendering the Form Finisher Editor (probably because of some
 		# circular dependencies)
-		currentObject[path] = v
+		currentObject.set(path, v)
 
 	# Callback which should be triggered when a nested property changes. Implements
 	# the event bubbling.
