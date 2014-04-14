@@ -154,6 +154,7 @@ TYPO3:
                 finishers:
                   sorting: 410
                   viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor'
+                  label: 'Finishers'
                   availableFinishers:
                     'TYPO3.Form:Email':
                       label: 'Send Email'
