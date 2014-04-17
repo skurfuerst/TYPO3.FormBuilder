@@ -572,7 +572,7 @@
     currentAjaxRequest: null,
     isLoadingBinding: 'TYPO3.FormBuilder.Model.Form.currentlyLoadingPreview',
     renderPageIfPageObjectChanges: (function() {
-      if (!TYPO3.FormBuilder.Model.Form.getPath('formDefinition.identifier')) {
+      if (!TYPO3.FormBuilder.Model.Form.getPath('formDefinition')) {
         return;
       }
       if (this.currentAjaxRequest) {
@@ -586,18 +586,23 @@
           var formDefinition;
           formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
           _this.set('isLoading', true);
-          return _this.currentAjaxRequest = $.post(TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer, {
-            formDefinition: formDefinition,
-            currentPageIndex: _this.get('currentPageIndex'),
-            presetName: TYPO3.FormBuilder.Configuration.presetName,
-            __csrfToken: TYPO3.FormBuilder.Configuration.csrfToken
-          }, function(data, textStatus, jqXHR) {
-            if (_this.currentAjaxRequest !== jqXHR) {
-              return;
+          return _this.currentAjaxRequest = $.ajax({
+            type: 'POST',
+            url: TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer,
+            data: JSON.stringify({
+              formDefinition: formDefinition,
+              currentPageIndex: _this.get('currentPageIndex'),
+              presetName: TYPO3.FormBuilder.Configuration.presetName,
+              __csrfToken: TYPO3.FormBuilder.Configuration.csrfToken
+            }),
+            success: function(data, textStatus, jqXHR) {
+              if (_this.currentAjaxRequest !== jqXHR) {
+                return;
+              }
+              _this.$().html(data);
+              _this.set('isLoading', false);
+              return _this.postProcessRenderedPage();
             }
-            _this.$().html(data);
-            _this.set('isLoading', false);
-            return _this.postProcessRenderedPage();
           });
         };
       })(this), 300);
