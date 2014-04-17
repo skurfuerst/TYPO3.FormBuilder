@@ -46,7 +46,7 @@ TYPO3.FormBuilder.View.Stage = Ember.View.extend {
 	# Function which renders the page if something changes on the form, with a little delay of 300 ms.
 	# After the response has been received from the server, it triggers the `postProcessPage` function.
 	renderPageIfPageObjectChanges: (->
-		return unless TYPO3.FormBuilder.Model.Form.getPath('formDefinition.identifier')
+		return unless TYPO3.FormBuilder.Model.Form.getPath('formDefinition')
 
 		if @currentAjaxRequest
 			@currentAjaxRequest.abort()
