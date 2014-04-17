@@ -57,19 +57,21 @@ TYPO3.FormBuilder.View.Stage = Ember.View.extend {
 		@timeout = window.setTimeout( =>
 			formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
 			@set('isLoading', true)
-			@currentAjaxRequest = $.post(
-				TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer,
-				{
-					formDefinition,
-					currentPageIndex: @get('currentPageIndex'),
-					presetName: TYPO3.FormBuilder.Configuration.presetName,
-					__csrfToken: TYPO3.FormBuilder.Configuration.csrfToken
-				},
-				(data, textStatus, jqXHR) =>
-					return unless @currentAjaxRequest == jqXHR
-					this.$().html(data);
-					@set('isLoading', false)
-					@postProcessRenderedPage();
+			@currentAjaxRequest = $.ajax({
+					type: 'POST',
+					url: TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer,
+					data: JSON.stringify({
+						formDefinition,
+						currentPageIndex: @get('currentPageIndex'),
+						presetName: TYPO3.FormBuilder.Configuration.presetName,
+						__csrfToken: TYPO3.FormBuilder.Configuration.csrfToken
+					}),
+					success: (data, textStatus, jqXHR) =>
+						return unless @currentAjaxRequest == jqXHR
+						this.$().html(data);
+						@set('isLoading', false)
+						@postProcessRenderedPage()
+				}
 			)
 		, 300)
 	).observes('page', 'page.__nestedPropertyChange'),
