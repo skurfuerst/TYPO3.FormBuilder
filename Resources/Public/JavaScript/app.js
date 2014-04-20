@@ -1122,6 +1122,7 @@
           throw "Collection Editor class '" + collectionElementTemplate.viewName + "' not found";
         }
         collectionElementEditorOptions = $.extend({
+          attributeBindings: ['elementIndex'],
           elementIndex: i,
           valueChanged: (function(_this) {
             return function() {

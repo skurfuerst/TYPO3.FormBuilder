@@ -120,6 +120,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = TYP
 			collectionElementEditor = Ember.getPath(collectionElementTemplate.viewName || 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor')
 			throw "Collection Editor class '#{collectionElementTemplate.viewName}' not found" if !collectionElementEditor
 			collectionElementEditorOptions = $.extend({
+				attributeBindings: ['elementIndex']
 				elementIndex: i
 				valueChanged: =>
 					@valueChanged()
