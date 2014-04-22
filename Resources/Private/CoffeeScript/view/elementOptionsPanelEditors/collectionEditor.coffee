@@ -27,6 +27,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = TYP
 	#    * `name`: Validator class name, if not specified the `TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor` is used.
 	#    * `options`: Validator options to be set (JSON object)
 	#    * `required`: (boolean) if TRUE; it is required validator which is not de-selectable
+	#    * `multiple`: (boolean) if TRUE; this object can be added multiple times
 	availableCollectionElements: null,
 
 
@@ -57,7 +58,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = TYP
 	sortedAvailableCollectionElements: (->
 		sortedCollectionElements = []
 		for identifier, collectionElementTemplate of @get('availableCollectionElements')
-			continue if @isCollectionElementTemplateFoundInCollection(identifier)
+			continue if @isCollectionElementTemplateFoundInCollection(identifier) && !collectionElementTemplate?.multiple
 			sortedCollectionElements.push($.extend({identifier}, collectionElementTemplate))
 
 		sortedCollectionElements.sort((a, b) -> a.sorting - b.sorting)

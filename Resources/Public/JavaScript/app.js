@@ -1063,7 +1063,7 @@
       _ref6 = this.get('availableCollectionElements');
       for (identifier in _ref6) {
         collectionElementTemplate = _ref6[identifier];
-        if (this.isCollectionElementTemplateFoundInCollection(identifier)) {
+        if (this.isCollectionElementTemplateFoundInCollection(identifier) && !(collectionElementTemplate != null ? collectionElementTemplate.multiple : void 0)) {
           continue;
         }
         sortedCollectionElements.push($.extend({
