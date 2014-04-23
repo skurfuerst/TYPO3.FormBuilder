@@ -33,6 +33,8 @@ convertToSimpleObject = (input) ->
 
 		if (typeof value == 'function')
 			# skip function references
+		else if Ember.isArray(value)
+			simpleObject[key] = ( convertToSimpleObject(el) for el in value )
 		else if (typeof value == 'object')
 			simpleObject[key] = convertToSimpleObject value
 		else

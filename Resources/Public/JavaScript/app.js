@@ -74,7 +74,7 @@
   TYPO3.FormBuilder.Utility = {};
 
   convertToSimpleObject = function(input) {
-    var key, simpleObject, value;
+    var el, key, simpleObject, value;
     simpleObject = {};
     for (key in input) {
       if (!__hasProp.call(input, key)) continue;
@@ -84,6 +84,16 @@
       }
       if (typeof value === 'function') {
 
+      } else if (Ember.isArray(value)) {
+        simpleObject[key] = (function() {
+          var _k, _len2, _results;
+          _results = [];
+          for (_k = 0, _len2 = value.length; _k < _len2; _k++) {
+            el = value[_k];
+            _results.push(convertToSimpleObject(el));
+          }
+          return _results;
+        })();
       } else if (typeof value === 'object') {
         simpleObject[key] = convertToSimpleObject(value);
       } else {
